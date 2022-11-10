@@ -1,48 +1,18 @@
-/*! =========================================================
- * bootstrap-slider.js
- *
- * Maintainers: 
- *		Kyle Kemp 
- *			- Twitter: @seiyria
- *			- Github:  seiyria
- *		Rohit Kalkur
- *			- Twitter: @Rovolutionary
- *			- Github:  rovolution
- *
- * =========================================================
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * ========================================================= */
 
 
-/**
- * Bridget makes jQuery widgets
- * v1.0.1
- * MIT license
- */
 ( function( $ ) {
 
 	( function( $ ) {
 
 		'use strict';
 
-		// -------------------------- utils -------------------------- //
+
 
 		var slice = Array.prototype.slice;
 
 		function noop() {}
 
-		// -------------------------- definition -------------------------- //
+
 
 		function defineBridget( $ ) {
 
@@ -51,7 +21,7 @@
 				return;
 			}
 
-			// -------------------------- addOptionMethod -------------------------- //
+
 
 			/**
 			 * adds option method -> $().plugin('option', {...})
@@ -74,7 +44,7 @@
 			}
 
 
-			// -------------------------- plugin bridge -------------------------- //
+
 
 			// helper function for logging errors
 			// $.error breaks jQuery chaining
@@ -92,8 +62,7 @@
 			  // add to jQuery fn namespace
 			  $.fn[ namespace ] = function( options ) {
 			    if ( typeof options === 'string' ) {
-			      // call plugin method when first argument is a string
-			      // get arguments for method
+			
 			      var args = slice.call( arguments, 1 );
 
 			      for ( var i=0, len = this.length; i < len; i++ ) {
@@ -144,7 +113,7 @@
 
 			}
 
-			// -------------------------- bridget -------------------------- //
+
 
 			/**
 			 * converts a Prototypical class into a proper jQuery plugin
@@ -167,11 +136,6 @@
 	})( $ );
 
 
-	/*************************************************
-					
-			BOOTSTRAP-SLIDER SOURCE CODE
-
-	**************************************************/
 
 	(function( $ ) {
 
@@ -184,22 +148,14 @@
 
 
 
-		/*************************************************
-						
-							CONSTRUCTOR
 
-		**************************************************/
 		var Slider = function(element, options) {
 			createNewSlider.call(this, element, options);
 			return this;
 		};
 
 		function createNewSlider(element, options) {
-			/*************************************************
-						
-							Create Markup
 
-			**************************************************/
 			if(typeof element === "string") {
 				this.element = document.querySelector(element);
 			} else if(element instanceof HTMLElement) {
@@ -268,7 +224,7 @@
 				this.sliderElem.appendChild(sliderTooltipMin);
 				this.sliderElem.appendChild(sliderTooltipMax);
 
-				/* Append slider element to parent container, right before the original <input> element */
+
 				parent.insertBefore(this.sliderElem, this.element);
 				
 				/* Hide original <input> element */
@@ -280,11 +236,7 @@
 				this.$sliderElem = $(this.sliderElem);
 			}
 
-			/*************************************************
-						
-							Process Options
 
-			**************************************************/
 			options = options ? options : {};
 			var optionTypes = Object.keys(this.defaultOptions);
 
@@ -317,11 +269,6 @@
 				}
 			}
 
-			/*************************************************
-						
-								Setup
-
-			**************************************************/
 			this.eventToCallbackMap = {};
 			this.sliderElem.id = this.options.id;
 
@@ -433,11 +380,7 @@
 			this.size = this.sliderElem[this.sizePos];
 			this.setValue(this.options.value);
 
-			/******************************************
-						
-						Bind Event Listeners
 
-			******************************************/
 
 			// Bind keyboard handlers
 			this.handle1Keydown = this._keydown.bind(this, 0);
@@ -485,14 +428,7 @@
 			}
 		}
 
-		/*************************************************
-						
-					INSTANCE PROPERTIES/METHODS
 
-		- Any methods bound to the prototype are considered 
-		part of the plugin's `public` interface
-
-		**************************************************/
 		Slider.prototype = {
 			_init: function() {}, // NOTE: Must exist to support bridget
 
@@ -670,16 +606,7 @@
 				return this;
 			},
 			
-			/******************************+
-					
-						HELPERS
 
-			- Any method that is not part of the public interface.
-			- Place it underneath this comment block and write its signature like so:
-
-			  					_fnName : function() {...}
-
-			********************************/
 			_removeSliderEventHandlers: function() {
 				// Remove event listeners from handle1
 				this.handle1.removeEventListener("keydown", this.handle1Keydown, false);
@@ -1034,10 +961,7 @@
 				var truncatedNum = num.toFixed(toFixedInput);
 				return parseFloat(truncatedNum);
 			},
-			/*
-				Credits to Mike Samuel for the following method!
-				Source: http://stackoverflow.com/questions/10454518/javascript-how-to-retrieve-the-number-of-decimals-of-a-string-number
-			*/
+
 			_getPercentage: function(ev) {
 				if (this.touchCapable && (ev.type === 'touchstart' || ev.type === 'touchmove')) {
 					ev = ev.touches[0];
@@ -1149,11 +1073,6 @@
 			}
 		};
 
-		/*********************************
-
-			Attach to global namespace
-
-		*********************************/
 		if($) {
 			var namespace = $.fn.slider ? 'bootstrapSlider' : 'slider';
 			$.bridget(namespace, Slider);
